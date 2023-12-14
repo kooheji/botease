@@ -78,7 +78,7 @@ app.get("/short/:number", (req, res) => {
     shortenedNumber = (number / 1000000000000).toFixed(2) + "t";
   }
   const paddedPrice = shortenedNumber.padStart(7, " ");
-  const formattedPrice = `BTC${paddedPrice}`;
+  const formattedPrice = `${paddedPrice}`;
   res.json({ formattedPrice });
 });
 
