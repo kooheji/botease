@@ -82,6 +82,50 @@ app.get("/short/:number", (req, res) => {
   res.json({ formattedPrice });
 });
 
+//Top 10 CryptoCurrencies Formatting
+app.get("/topcoin", (req, res) => {
+  const { symbol, price, change, cap } = req.query;
+  const capitalizedsymbol = symbol.toUpperCase();
+  if (capitalizedsymbol.length < 5) {
+    paddedWord = capitalizedsymbol.padEnd(5, " ");
+    formattedWord = `${paddedWord}`;
+  } else {
+    paddedWord = capitalizedsymbol.slice(0, 5);
+    formattedWord = `${paddedWord}`;
+  }
+  let pricecut = parseFloat(price).toFixed(2);
+  if (price >= 1000 && price < 1000000) {
+    pricecut = (price / 1000).toFixed(2) + "k";
+  } else if (price >= 1000000 && price < 1000000000) {
+    pricecut = (price / 1000000).toFixed(2) + "m";
+  } else if (price >= 1000000000 && price < 1000000000000) {
+    pricecut = (price / 1000000000).toFixed(2) + "b";
+  } else if (price >= 1000000000000) {
+    pricecut = (price / 1000000000000).toFixed(2) + "t";
+  }
+  const paddedPrice = pricecut.padStart(7, " ");
+  const formattedPrice = `${paddedPrice}`;
+  const formattedchange = parseFloat(change).toFixed(2);
+  let capcut = parseFloat(cap).toFixed(2);
+  if (price >= 1000 && cap < 1000000) {
+    capcut = (cap / 1000).toFixed(2) + "k";
+  } else if (cap >= 1000000 && cap < 1000000000) {
+    capcut = (cap / 1000000).toFixed(2) + "m";
+  } else if (cap >= 1000000000 && cap < 1000000000000) {
+    capcut = (cap / 1000000000).toFixed(2) + "b";
+  } else if (cap >= 1000000000000) {
+    capcut = (cap / 1000000000000).toFixed(2) + "t";
+  }
+  const paddedCap = capcut.padStart(7, " ");
+  const formattedCap = `${paddedCap}`;
+  res.json({
+    Symbol: formattedWord,
+    Price: formattedPrice,
+    Change: formattedchange,
+    Cap: formattedCap,
+  });
+});
+
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
