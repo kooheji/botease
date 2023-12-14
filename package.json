@@ -1,0 +1,14 @@
+{
+  "name": "calctime",
+  "version": "1.0.0",
+  "description": "Calculate Bot Uptime",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kooheji",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
