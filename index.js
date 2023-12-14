@@ -63,6 +63,24 @@ app.get("/listcoin", (req, res) => {
   });
 });
 
+//Shorten Numbers with 2 Decimals
+app.get("/short/:number", (req, res) => {
+  const number = parseFloat(req.params.number);
+  let shortenedNumber = number.toFixed(2);
+
+  if (number >= 1000 && number < 1000000) {
+    shortenedNumber = (number / 1000).toFixed(2) + "k";
+  } else if (number >= 1000000 && number < 1000000000) {
+    shortenedNumber = (number / 1000000).toFixed(2) + "m";
+  } else if (number >= 1000000000 && number < 1000000000000) {
+    shortenedNumber = (number / 1000000000).toFixed(2) + "b";
+  } else if (number >= 1000000000000) {
+    shortenedNumber = (number / 1000000000000).toFixed(2) + "t";
+  }
+
+  res.json({ shortenedNumber });
+});
+
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
