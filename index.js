@@ -15,7 +15,7 @@ app.get("/calctime/:restarttime", (req, res) => {
   const UptimeMinutes = Math.floor(
     (seconddifference - UptimeDays * day - UptimeHours * hour) / minute
   );
-  const Value = `**${UptimeDays}** days, **${UptimeHours}** hours, **${UptimeMinutes}** minutes`;
+  const Value = `**${UptimeDays}** Days, **${UptimeHours}** Hours, **${UptimeMinutes}** Minutes`;
 
   res.json({
     Value,
