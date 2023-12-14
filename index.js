@@ -23,8 +23,13 @@ app.get("/calctime/:restarttime", (req, res) => {
 
 app.get("/listnft", (req, res) => {
   const { symbol, currency, price } = req.query;
-  const paddedWord = symbol.padEnd(10, " ");
-  const formattedWord = `${paddedWord}`;
+  if (symbol.length < 10) {
+    paddedWord = symbol.padEnd(10, " ");
+    formattedWord = `${paddedWord}`;
+  } else {
+    paddedWord = symbol.slice(0, 10);
+    formattedWord = `${paddedWord}`;
+  }
   const capitalizedWord = currency.toUpperCase();
   const paddedCurrency = capitalizedWord.padEnd(6, " ");
   const formattedNumber = parseFloat(price).toFixed(2);
