@@ -21,17 +21,19 @@ app.get("/calctime/:restarttime", (req, res) => {
   });
 });
 
-app.get("/addSpaces/:word", (req, res) => {
-  const { word } = req.params;
-  const paddedWord = word.padEnd(10, " ");
+app.get("/listnft", (req, res) => {
+  const { symbol, currency, price } = req.query;
+  const paddedWord = symbol.padEnd(10, " ");
   const formattedWord = `- ${paddedWord}`;
-  res.json({ word: formattedWord });
-});
-
-app.get("/formatNumber/:number", (req, res) => {
-  const number = parseFloat(req.params.number);
-  const formattedNumber = number.toFixed(3);
-  res.send(formattedNumber);
+  const capitalizedWord = currency.toUpperCase();
+  const formattedNumber = parseFloat(price).toFixed(2);
+  const paddedPrice = formattedNumber.padEnd(6, " ");
+  const formattedPrice = `- ${paddedPrice}`;
+  res.json({
+    Symbol: formattedWord,
+    Currency: capitalizedWord,
+    Price: formattedPrice,
+  });
 });
 
 app.listen(3000, () => {
