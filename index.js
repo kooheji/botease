@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 
+//Bot Uptime Calculate
 app.get("/calctime/:restarttime", (req, res) => {
   const day = 86400;
   const hour = 3600;
@@ -21,6 +22,7 @@ app.get("/calctime/:restarttime", (req, res) => {
   });
 });
 
+//Trending NFTs Listing Formatting
 app.get("/listnft", (req, res) => {
   const { symbol, currency, price } = req.query;
   if (symbol.length < 10) {
@@ -38,6 +40,25 @@ app.get("/listnft", (req, res) => {
   res.json({
     Symbol: formattedWord,
     Currency: paddedCurrency,
+    Price: formattedPrice,
+  });
+});
+
+//Trending Coins Listing Formatting
+app.get("/listcoin", (req, res) => {
+  const { symbol, price } = req.query;
+  if (symbol.length < 10) {
+    paddedWord = symbol.padEnd(10, " ");
+    formattedWord = `${paddedWord}`;
+  } else {
+    paddedWord = symbol.slice(0, 10);
+    formattedWord = `${paddedWord}`;
+  }
+  const formattedNumber = parseFloat(price).toFixed(3);
+  const paddedPrice = formattedNumber.padStart(7, " ");
+  const formattedPrice = `$${paddedPrice}`;
+  res.json({
+    Symbol: formattedWord,
     Price: formattedPrice,
   });
 });
