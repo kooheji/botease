@@ -55,7 +55,7 @@ app.get("/listcoin", (req, res) => {
     formattedWord = `${paddedWord}`;
   }
   const formattedNumber = parseFloat(price).toFixed(2);
-  const paddedPrice = formattedNumber.padStart(7, " ");
+  const paddedPrice = formattedNumber.padStart(8, " ");
   const formattedPrice = `$${paddedPrice}`;
   res.json({
     Symbol: formattedWord,
