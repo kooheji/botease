@@ -35,7 +35,7 @@ app.get("/listnft", (req, res) => {
   const capitalizedWord = currency.toUpperCase();
   const paddedCurrency = capitalizedWord.padEnd(6, " ");
   const formattedNumber = parseFloat(price).toFixed(2);
-  const paddedPrice = formattedNumber.padStart(6, " ");
+  const paddedPrice = formattedNumber.padStart(7, " ");
   const formattedPrice = `${paddedPrice}`;
   res.json({
     Symbol: formattedWord,
