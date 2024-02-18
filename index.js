@@ -1,4 +1,6 @@
 const express = require("express");
+const axios = require("axios");
+const fs = require("fs");
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -142,6 +144,18 @@ app.get("/topcoin", (req, res) => {
     Change: formattedchange,
     Cap: formattedCap,
   });
+});
+
+//PNG to Base64
+app.get("/convert", async (req, res) => {
+  const { url } = req.query;
+
+  const response = await axios.get(url, { responseType: "arraybuffer" });
+  const base64Data = Buffer.from(response.data, "binary").toString("base64");
+
+  const fileName = url.substring(url.lastIndexOf("/") + 1);
+
+  res.json({ base64Data, fileName });
 });
 
 app.listen(3000, () => {
