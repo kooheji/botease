@@ -22,6 +22,24 @@ app.get("/calctime/:restarttime", (req, res) => {
   });
 });
 
+//Seconds Calculate
+app.get("/secstime/:restarttime", (req, res) => {
+  const day = 86400;
+  const hour = 3600;
+  const minute = 60;
+  const OldTime = parseInt(req.params.restarttime);
+  const UptimeDays = Math.floor(OldTime / 86400);
+  const UptimeHours = Math.floor((OldTime - UptimeDays * day) / hour);
+  const UptimeMinutes = Math.floor(
+    (OldTime - UptimeDays * day - UptimeHours * hour) / minute
+  );
+  const Value = `**${UptimeDays}** Days, **${UptimeHours}** Hours, **${UptimeMinutes}** Minutes`;
+
+  res.json({
+    Value,
+  });
+});
+
 //Trending NFTs Listing Formatting
 app.get("/listnft", (req, res) => {
   const { symbol, currency, price } = req.query;
