@@ -147,7 +147,7 @@ app.get("/topcoin", (req, res) => {
 });
 
 //PNG to Base64
-app.get("/convert", async (req, res) => {
+app.get("/base64", async (req, res) => {
   const { url } = req.query;
 
   const response = await axios.get(url, { responseType: "arraybuffer" });
