@@ -1,5 +1,5 @@
 const express = require("express");
-const axios = require("axios");
+const fetch = require("node-fetch");
 const fs = require("fs");
 const app = express();
 const port = process.env.PORT || 3000;
@@ -148,12 +148,16 @@ app.get("/topcoin", (req, res) => {
 
 //PNG to Base64
 app.get("/base64", async (req, res) => {
-  const { url } = req.query;
+  const imageUrl = req.query.url;
+  const response = await fetch(imageUrl);
+  const buffer = await response.buffer();
+  const base64Image = buffer.toString("base64");
+  const fileName = imageUrl.substring(
+    imageUrl.lastIndexOf("/") + 1,
+    imageUrl.lastIndexOf(".")
+  );
 
-  const response = await axios.get(url, { responseType: "arraybuffer" });
-  const base64Data = Buffer.from(response.data, "binary").toString("base64");
-
-  const fileName = url.substring(url.lastIndexOf("/") + 1);
+  const base64Data = `data:image/png;base64,${base64Image}`;
 
   res.json({ base64Data, fileName });
 });
